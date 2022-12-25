@@ -5,7 +5,7 @@ import 'package:flutter_clean_calendar/flutter_clean_calendar.dart';
 import '../Model/Exams.dart';
 
 class MainBody extends StatefulWidget {
-  List<Exams> ExamsMap;
+  Map<DateTime, List<CleanCalendarEvent>> ExamsMap;
 
   MainBody({required this.ExamsMap});
 
@@ -19,33 +19,16 @@ class _MainBodyState extends State<MainBody> {
 
   List<CleanCalendarEvent>? selectedEvents;
 
-  final Map<DateTime, List<CleanCalendarEvent>> events = {
-    DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
-      CleanCalendarEvent("Event1",
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 10, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 11, 0),
-          description: "Event1 description"),
-      CleanCalendarEvent("Event2",
-          startTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 11, 0),
-          endTime: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 12, 0),
-          description: "Event2 description"),
-    ],
-  };
-
   void _handleDate(date) {
     setState(() {
       _selectedDay = date;
-      selectedEvents = events[_selectedDay] ?? [];
+      selectedEvents = widget.ExamsMap[_selectedDay] ?? [];
     });
   }
 
   @override
   void initState() {
-    selectedEvents = events[_selectedDay] ?? [];
+    selectedEvents = widget.ExamsMap[_selectedDay] ?? [];
     super.initState();
   }
 
@@ -63,46 +46,18 @@ class _MainBodyState extends State<MainBody> {
           onDateSelected: (date) {
             return _handleDate(date);
           },
-          events: events,
+          events: widget.ExamsMap,
           isExpanded: true,
           dayOfWeekStyle: TextStyle(
             fontSize: 15,
             color: Colors.black12,
-            fontWeight: FontWeight.w100,
           ),
-          bottomBarTextStyle: TextStyle(color: Colors.red),
+          bottomBarTextStyle: TextStyle(color: Colors.black),
           hideBottomBar: false,
           hideArrows: false,
           weekDays: const ['Mon', 'Tue', 'Wen', 'Thu', 'Fri', 'Sat', 'Sun'],
         ),
       ),
     );
-
-    // child: widget.ExamsList.isEmpty
-    //     ? Text("No elements")
-    //     : ListView.builder(
-    //         itemBuilder: (ctx, index) {
-    //           return Card(
-    //             elevation: 3,
-    //             // ignore: prefer_const_constructors
-    //             margin: EdgeInsets.symmetric(
-    //               vertical: 8,
-    //               horizontal: 10,
-    //             ),
-    //             child: ListTile(
-    //               title: Text(widget.ExamsList[index].title),
-    //               subtitle: Text(
-    //                 DateFormat("yyyy-MM-dd")
-    //                     .format(widget.ExamsList[index].dateTime),
-    //               ),
-    //               trailing: IconButton(
-    //                 icon: Icon(Icons.delete),
-    //                 onPressed: () => _deleteItem(widget.ExamsList[index].id),
-    //               ),
-    //             ),
-    //           );
-    //         },
-    //         itemCount: widget.ExamsList.length,
-    // ),
   }
 }

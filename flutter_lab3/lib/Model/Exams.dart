@@ -1,11 +1,15 @@
 class Exams {
-  final String id;
   final String title;
-  final DateTime dateTime;
+  final String description;
+  final DateTime dateOfExam;
+  final DateTime startTime;
+  final DateTime endTime;
 
   Exams({
-    required this.id,
     required this.title,
-    required this.dateTime,
+    required this.description,
+    required this.dateOfExam,
+    required this.startTime,
+    required this.endTime,
   });
 }

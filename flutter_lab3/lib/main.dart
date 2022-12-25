@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_calendar/clean_calendar_event.dart';
 import 'package:flutter_lab3/Model/Exams.dart';
 import 'package:flutter_lab3/Widget/NewExam.dart';
 import 'package:flutter_lab3/Widget/mainBody.dart';
@@ -29,7 +30,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Exams> exams = [];
+  Map<DateTime, List<CleanCalendarEvent>> exams = {};
 
   void _addItemFunction(BuildContext ct) {
     showModalBottomSheet(
@@ -43,8 +44,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _addNewItemToList(Exams item) {
+    var newItem = CleanCalendarEvent(item.title,
+        description: item.description,
+        startTime: item.startTime,
+        endTime: item.endTime);
     setState(() {
-      exams.add(item);
+      if (exams.containsKey(item.dateOfExam)) {
+        exams[item.dateOfExam]?.add(newItem);
+      } else {
+        exams.addAll({
+          item.dateOfExam: [newItem]
+        });
+      }
     });
   }
 
@@ -52,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Exam List"),
+        title: Text("Exams"),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
