@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.lightGreen,
-        accentColor: Colors.red,
       ),
       home: MyHomePage(),
     );
@@ -61,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: MainBody(ExamsList: exams),
+      body: MainBody(ExamsMap: exams),
     );
   }
 }
