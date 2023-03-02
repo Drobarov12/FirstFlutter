@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lab3/Widget/ResusibleWidgets.dart';
 
+import 'HomePage.dart';
 import 'SignUpPage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -38,7 +39,10 @@ class _LoginPageStete extends State<LoginPage> {
               SizedBox(
                 height: 20,
               ),
-              logInSingUpButton(context, true, () {}),
+              logInSingUpButton(context, true, () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()));
+              }),
               signUpOption(),
             ],
           ),
