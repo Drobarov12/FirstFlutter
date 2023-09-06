@@ -4,6 +4,8 @@ class Exams {
   final DateTime dateOfExam;
   final DateTime startTime;
   final DateTime endTime;
+  final String longitude;
+  final String latitude;
 
   Exams({
     required this.title,
@@ -11,5 +13,7 @@ class Exams {
     required this.dateOfExam,
     required this.startTime,
     required this.endTime,
+    required this.longitude,
+    required this.latitude,
   });
 }

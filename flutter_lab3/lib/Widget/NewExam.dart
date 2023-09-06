@@ -17,6 +17,8 @@ class _NewExamState extends State<NewExam> {
   final _vrednostController = TextEditingController();
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
+  final _longitudeController = TextEditingController();
+  final _latitudeController = TextEditingController();
 
   void _submitData() {
     if (_vrednostController.text.isEmpty ||
@@ -26,6 +28,8 @@ class _NewExamState extends State<NewExam> {
     }
     final vnesenNaslov = _naslovController.text;
     final descriptionValue = _descriptionController.text;
+    final longitudeValue = _longitudeController.text;
+    final latitudeValue = _latitudeController.text;
     final vnesenaVrednost = DateTime.parse(_vrednostController.text);
     final startTimeValue = DateTime.parse(
         _vrednostController.text + " " + _startTimeController.text);
@@ -41,6 +45,8 @@ class _NewExamState extends State<NewExam> {
       dateOfExam: vnesenaVrednost,
       startTime: startTimeValue,
       endTime: endTimeValue,
+      longitude: longitudeValue,
+      latitude: latitudeValue,
     );
     widget.addItem(newItem);
     Navigator.of(context).pop();
@@ -60,6 +66,16 @@ class _NewExamState extends State<NewExam> {
           TextField(
             controller: _descriptionController,
             decoration: InputDecoration(labelText: "Description"),
+            onSubmitted: (_) => _submitData(),
+          ),
+          TextField(
+            controller: _longitudeController,
+            decoration: InputDecoration(labelText: "Longitude"),
+            onSubmitted: (_) => _submitData(),
+          ),
+          TextField(
+            controller: _latitudeController,
+            decoration: InputDecoration(labelText: "Longitude"),
             onSubmitted: (_) => _submitData(),
           ),
           TextField(
