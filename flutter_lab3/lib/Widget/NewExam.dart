@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_lab3/Model/Exams.dart';
 import 'package:intl/intl.dart';
 
+import 'Maps.dart';
+
 class NewExam extends StatefulWidget {
   final Function addItem;
 
@@ -73,10 +75,32 @@ class _NewExamState extends State<NewExam> {
             decoration: InputDecoration(labelText: "Longitude"),
             onSubmitted: (_) => _submitData(),
           ),
-          TextField(
-            controller: _latitudeController,
-            decoration: InputDecoration(labelText: "Longitude"),
-            onSubmitted: (_) => _submitData(),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _latitudeController,
+                  decoration: InputDecoration(labelText: "Latitude"),
+                  onSubmitted: (_) => _submitData(),
+                ),
+              ),
+              SizedBox(width: 10), // Add some space between the elements
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => MapView(
+                        latitude: double.tryParse(_latitudeController.text)!,
+                        longitude: double.tryParse(_longitudeController.text)!,
+                        locationName: _naslovController.text,
+                      ),
+                    ),
+                  );
+                },
+                child: Text('See Location'),
+              ),
+            ],
           ),
           TextField(
             controller: _vrednostController,
